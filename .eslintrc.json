@@ -1,0 +1,50 @@
+{
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "airbnb-base",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "project": "./tsconfig.json",
+        "ecmaFeatures": {
+            "impliedStrict": true
+        }
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "import/prefer-default-export": "off",
+        "indent": [ "error", 4 ],
+        "max-len": [ "error", { "code": 120 } ],
+        "lines-between-class-members": [ "error", "always", { "exceptAfterSingleLine": true } ],
+        "no-restricted-syntax": [ "error", "ForInStatement", "LabeledStatement", "WithStatement" ],
+        "no-plusplus": [ "error", { "allowForLoopAfterthoughts": true } ],
+        "no-multi-spaces": [ "error", { "ignoreEOLComments": true, "exceptions": {
+            "VariableDeclarator": true,
+            "AssignmentExpression": true
+        } } ],
+        "no-mixed-operators": "off",
+        "no-param-reassign": "off",
+        "no-multi-assign": "off",
+        "no-bitwise": "off",
+        "max-classes-per-file": "off",
+        "@typescript-eslint/explicit-function-return-type": [ "error", { "allowHigherOrderFunctions": false } ],
+        "camelcase": "off",
+        "@typescript-eslint/camelcase": [ "error", { "properties": "always" } ]
+    },
+    "settings": { "import/resolver": "webpack" }
+}

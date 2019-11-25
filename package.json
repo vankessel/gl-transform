@@ -1,0 +1,50 @@
+{
+    "name": "gl-transform",
+    "version": "0.0.0",
+    "description": "A WebGL focused math library",
+    "main": "./dist/bundle.js",
+    "types": "./dist/types/index.d.ts",
+    "scripts": {
+        "clean": "rm -rf dist",
+        "build": "npm run clean && webpack -p",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/vankessel/gl-math.git"
+    },
+    "keywords": [
+        "gl",
+        "webgl",
+        "opengl",
+        "math",
+        "matrix",
+        "vector",
+        "quaternion",
+        "linear algebra",
+        "typescript"
+    ],
+    "author": "Kevin van Kessel <npm@vankessel.io> (https://vankessel.io/)",
+    "license": "LGPL-3.0-only",
+    "bugs": {
+        "url": "https://github.com/vankessel/gl-math/issues"
+    },
+    "homepage": "https://github.com/vankessel/gl-math#readme",
+    "files": [
+        "dist/",
+        "src/"
+    ],
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^2.9.0",
+        "@typescript-eslint/parser": "^2.9.0",
+        "eslint": "^6.7.1",
+        "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-import-resolver-webpack": "^0.11.1",
+        "eslint-plugin-import": "^2.18.2",
+        "ts-loader": "^6.2.1",
+        "typescript": "^3.7.2",
+        "webpack": "^4.41.2",
+        "webpack-cli": "^3.3.10"
+    },
+    "dependencies": {}
+}
