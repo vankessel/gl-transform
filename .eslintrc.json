@@ -31,11 +31,13 @@
         "indent": [ "error", 4 ],
         "max-len": [ "error", { "code": 120 } ],
         "lines-between-class-members": [ "error", "always", { "exceptAfterSingleLine": true } ],
+        "operator-linebreak": [ "error", "after" ],
         "no-restricted-syntax": [ "error", "ForInStatement", "LabeledStatement", "WithStatement" ],
         "no-plusplus": [ "error", { "allowForLoopAfterthoughts": true } ],
         "no-multi-spaces": [ "error", { "ignoreEOLComments": true, "exceptions": {
             "VariableDeclarator": true,
-            "AssignmentExpression": true
+            "AssignmentExpression": true,
+            "BinaryExpression": true
         } } ],
         "no-mixed-operators": "off",
         "no-param-reassign": "off",

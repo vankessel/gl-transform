@@ -1,5 +1,5 @@
-import * as mat4 from './mat';
+import { Mat4 } from './mat';
 
 export {
-    mat4,
+    Mat4,
 };
