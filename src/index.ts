@@ -1,5 +1,2 @@
-import { Mat4 } from './mat';
-
-export {
-    Mat4,
-};
+export * from './vec';
+export * from './mat';
