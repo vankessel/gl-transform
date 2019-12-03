@@ -5,6 +5,22 @@ export class Vec2 extends Float32Array {
         super(2);
     }
 
+    get x(): number {
+        return this[0];
+    }
+
+    set x(val: number) {
+        this[0] = val;
+    }
+
+    get y(): number {
+        return this[1];
+    }
+
+    set y(val: number) {
+        this[1] = val;
+    }
+
     public static clone(arr: Float32Array): Vec2 {
         const out = new Vec2();
         out.set(arr.subarray(0, this.DIM));
@@ -48,6 +64,30 @@ export class Vec3 extends Float32Array {
         super(3);
     }
 
+    get x(): number {
+        return this[0];
+    }
+
+    set x(val: number) {
+        this[0] = val;
+    }
+
+    get y(): number {
+        return this[1];
+    }
+
+    set y(val: number) {
+        this[1] = val;
+    }
+
+    get z(): number {
+        return this[2];
+    }
+
+    set z(val: number) {
+        this[2] = val;
+    }
+
     public static clone(arr: Float32Array): Vec3 {
         const out = new Vec3();
         out.set(arr.subarray(0, this.DIM));
@@ -66,6 +106,23 @@ export class Vec3 extends Float32Array {
         out[0] = v1;
         out[1] = v2;
         out[2] = v3;
+
+        return out;
+    }
+
+    public static norm(v: Vec3): number {
+        return Math.sqrt(this.normSquared(v));
+    }
+
+    public static normSquared(v: Vec3): number {
+        return v[0] * v[0] + v[1] * v[1] + v[2] * v[2];
+    }
+
+    public static normalize(v: Vec3, out = new Vec3()): Vec3 {
+        const inorm = 1 / this.norm(v);
+        out[0] = v[0] * inorm;
+        out[1] = v[1] * inorm;
+        out[2] = v[2] * inorm;
 
         return out;
     }
@@ -92,6 +149,38 @@ export class Vec4 extends Float32Array {
 
     constructor() {
         super(4);
+    }
+
+    get x(): number {
+        return this[0];
+    }
+
+    set x(val: number) {
+        this[0] = val;
+    }
+
+    get y(): number {
+        return this[1];
+    }
+
+    set y(val: number) {
+        this[1] = val;
+    }
+
+    get z(): number {
+        return this[2];
+    }
+
+    set z(val: number) {
+        this[2] = val;
+    }
+
+    get w(): number {
+        return this[3];
+    }
+
+    set w(val: number) {
+        this[3] = val;
     }
 
     public static clone(arr: Float32Array): Vec4 {

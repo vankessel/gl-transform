@@ -43,7 +43,8 @@
         "max-classes-per-file": "off",
         "@typescript-eslint/explicit-function-return-type": [ "error", { "allowHigherOrderFunctions": false } ],
         "camelcase": "off",
-        "@typescript-eslint/camelcase": [ "error", { "properties": "always" } ]
+        "@typescript-eslint/camelcase": [ "error", { "properties": "always" } ],
+        "padding-line-between-statements": [ "error", { "blankLine": "always", "prev": "*", "next": "return" }]
     },
     "settings": { "import/resolver": "webpack" }
 }
