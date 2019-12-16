@@ -142,6 +142,16 @@ export class Vec3 extends Float32Array {
 
         return out;
     }
+
+    public static cross(a: Vec3, b: Vec3, out = new Vec3()): Vec3 {
+        const x = a[1] * b[2] - a[2] * b[1];
+        const y = a[2] * b[0] - a[0] * b[2];
+        out[2] = a[0] * b[1] - a[1] * b[0];
+        out[1] = y;
+        out[0] = x;
+
+        return out;
+    }
 }
 
 export class Vec4 extends Float32Array {
@@ -220,6 +230,24 @@ export class Vec4 extends Float32Array {
         out[1] = a[1] - b[1];
         out[2] = a[2] - b[2];
         out[3] = a[3] - b[3];
+
+        return out;
+    }
+
+    public static multiply(a: Vec4, b: Vec4, out = new Vec4()): Vec4 {
+        out[0] = a[0] * b[0];
+        out[1] = a[1] * b[1];
+        out[2] = a[2] * b[2];
+        out[3] = a[3] * b[3];
+
+        return out;
+    }
+
+    public static multiplyScalar(a: Vec4, scalar: number, out = new Vec4()): Vec4 {
+        out[0] = a[0] * scalar;
+        out[1] = a[1] * scalar;
+        out[2] = a[2] * scalar;
+        out[3] = a[3] * scalar;
 
         return out;
     }

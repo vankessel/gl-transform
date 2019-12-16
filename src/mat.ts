@@ -96,7 +96,11 @@ export class Mat4 extends Float32Array {
 
     public static clone(arr: Float32Array): Mat4 {
         const out = new Mat4();
-        out.set(arr.subarray(0, this.DIM * this.DIM));
+        // TODO: Slice used to be subarray because it is faster.
+        //       Works in browser console, but webpack seems to break it.
+        //       Cloned identity matrix gets its 1s replaced with NaNs.
+        //       If impossible to fix. Delete method, use from instead.
+        out.set(arr.slice(0, this.DIM * this.DIM));
 
         return out;
     }
@@ -127,6 +131,30 @@ export class Mat4 extends Float32Array {
         out[1] = m11[1]; out[5] = m11[3]; out[9]  = m12[1]; out[13] = m12[3];
         out[2] = m21[0]; out[6] = m21[2]; out[10] = m22[0]; out[14] = m22[2];
         out[3] = m21[1]; out[7] = m21[3]; out[11] = m22[1]; out[15] = m22[3];
+
+        return out;
+    }
+
+    public static equals(a: Mat4, b: Mat4): boolean {
+        return a[0] === b[0] && a[4] === b[4] && a[8]  === b[8]  && a[12] === b[12] &&
+               a[1] === b[1] && a[5] === b[5] && a[9]  === b[9]  && a[13] === b[13] &&
+               a[2] === b[2] && a[6] === b[6] && a[10] === b[10] && a[14] === b[14] &&
+               a[3] === b[3] && a[7] === b[7] && a[11] === b[11] && a[15] === b[15];
+    }
+
+    public static perspectiveMatrix(xFov: number, aspect: number, near: number, far: number): Mat4 {
+        // TODO: Is there an equivalent formula for xFov without conversion to yFov?
+        //       http://ogldev.atspace.co.uk/www/tutorial12/tutorial12.html
+        const out = new Mat4();
+        const aspectInv = 1 / aspect;
+        const yFovHalved = xFov * aspectInv / 2;
+        out[5] = 1 / Math.tan(yFovHalved);
+        out[0] = out[5] * aspectInv;
+        const nearFarDiffInv = 1 / (near - far);
+        out[10] = (near + far) * nearFarDiffInv;
+        out[11] = -1;
+        out[14] = 2 * near * far * nearFarDiffInv;
+        out[15] = 0;
 
         return out;
     }
@@ -182,9 +210,38 @@ export class Mat4 extends Float32Array {
         );
     }
 
-    // public static translate(mat: Mat4, x: number, y: number, z: number, out = new Mat4()): Mat4 {
-    //     // TODO: Implement
-    // }
+    /**
+     * Translates the x, y, z components of the matrix. If the projection row
+     * of the matrix is not [0, 0, 0, w], then this will not act like a left-
+     * multiplication of a translation matrix.
+     * @param mat
+     * @param x
+     * @param y
+     * @param z
+     * @param out
+     */
+    public static translateWorld(mat: Mat4, x: number, y: number, z: number, out = new Mat4()): Mat4 {
+        out[12] = mat[12] + mat[15] * x;
+        out[13] = mat[13] + mat[15] * y;
+        out[14] = mat[14] + mat[15] * z;
+
+        if (out !== mat) {
+            out[0] = mat[0]; out[4] = mat[4]; out[8]  = mat[8];
+            out[1] = mat[1]; out[5] = mat[5]; out[9]  = mat[9];
+            out[2] = mat[2]; out[6] = mat[6]; out[10] = mat[10];
+            out[3] = mat[3]; out[7] = mat[7]; out[11] = mat[11]; out[15] = mat[15];
+        }
+
+        return out;
+    }
+
+    public static translate(mat: Mat4, x: number, y: number, z: number, out = new Mat4()): Mat4 {
+        this.translateWorld(mat, x * mat[0], x * mat[1], x * mat[2], out);
+        this.translateWorld(out, y * mat[4], y * mat[5], y * mat[6], out);
+        this.translateWorld(out, z * mat[8], z * mat[9], z * mat[10], out);
+
+        return out;
+    }
 
     public static rotationXMatrix(radians: number): Mat4 {
         const sin = Math.sin(radians);
