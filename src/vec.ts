@@ -35,9 +35,9 @@ export class Vec2 extends Float32Array {
         return mat;
     }
 
-    public static fromValues(v1: number, v2: number, out = new Vec2()): Vec2 {
-        out[0] = v1;
-        out[1] = v2;
+    public static fromValues(x: number, y: number, out = new Vec2()): Vec2 {
+        out[0] = x;
+        out[1] = y;
 
         return out;
     }
@@ -102,10 +102,10 @@ export class Vec3 extends Float32Array {
         return mat;
     }
 
-    public static fromValues(v1: number, v2: number, v3: number, out = new Vec3()): Vec3 {
-        out[0] = v1;
-        out[1] = v2;
-        out[2] = v3;
+    public static fromValues(x: number, y: number, z: number, out = new Vec3()): Vec3 {
+        out[0] = x;
+        out[1] = y;
+        out[2] = z;
 
         return out;
     }
@@ -207,11 +207,11 @@ export class Vec4 extends Float32Array {
         return mat;
     }
 
-    public static fromValues(v1: number, v2: number, v3: number, v4: number, out = new Vec4()): Vec4 {
-        out[0] = v1;
-        out[1] = v2;
-        out[2] = v3;
-        out[3] = v4;
+    public static fromValues(x: number, y: number, z: number, w: number, out = new Vec4()): Vec4 {
+        out[0] = x;
+        out[1] = y;
+        out[2] = z;
+        out[3] = w;
 
         return out;
     }
