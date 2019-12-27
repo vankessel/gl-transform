@@ -596,7 +596,7 @@ export class Mat4 extends Float32Array {
             mat[8]  * mat[1]  * mat[6]  -
             mat[8]  * mat[2]  * mat[5];
 
-        let det = mat[0] * out[0] + mat[1] * out[4] + mat[2] * out[8] + mat[3] * out[12];
+        let det = mat[0] * out0 + mat[1] * out4 + mat[2] * out8 + mat[3] * out12;
 
         // It's okay if this throws.
         det = 1.0 / det;
