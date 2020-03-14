@@ -5,6 +5,7 @@ export class Vec2 extends Float32Array {
         super(2);
     }
 
+    // TODO: Add swizzling when typescript supports metaprogramming
     get x(): number {
         return this[0];
     }
@@ -21,12 +22,9 @@ export class Vec2 extends Float32Array {
         this[1] = val;
     }
 
-    public static clone(arr: Float32Array): Vec2 {
-        const out = new Vec2();
-        out.set(arr.subarray(0, this.DIM));
-
-        return out;
-    }
+    /*
+     * Methods
+     */
 
     public static from(arr: number[]): Vec2 {
         const mat = new Vec2();
@@ -88,12 +86,9 @@ export class Vec3 extends Float32Array {
         this[2] = val;
     }
 
-    public static clone(arr: Float32Array): Vec3 {
-        const out = new Vec3();
-        out.set(arr.subarray(0, this.DIM));
-
-        return out;
-    }
+    /*
+     * Methods
+     */
 
     public static from(arr: number[]): Vec3 {
         const mat = new Vec3();
@@ -193,12 +188,9 @@ export class Vec4 extends Float32Array {
         this[3] = val;
     }
 
-    public static clone(arr: Float32Array): Vec4 {
-        const out = new Vec4();
-        out.set(arr.subarray(0, this.DIM));
-
-        return out;
-    }
+    /*
+     * Methods
+     */
 
     public static from(arr: number[]): Vec4 {
         const mat = new Vec4();

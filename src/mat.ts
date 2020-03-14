@@ -1,6 +1,10 @@
 import { Vec3 } from './vec';
 
+/**
+ * A 2x2 matrix.
+ */
 export class Mat2 extends Float32Array {
+    // I wish more languages supported dependent types (https://en.wikipedia.org/wiki/Dependent_type)
     static readonly DIM = 2;
 
     constructor(scale = 1) {
@@ -8,14 +12,7 @@ export class Mat2 extends Float32Array {
         this[0] = this[3] = scale;
     }
 
-    public static clone(arr: Float32Array): Mat2 {
-        const out = new Mat2();
-        out.set(arr.subarray(0, this.DIM * this.DIM));
-
-        return out;
-    }
-
-    public static from(arr: number[]): Mat2 {
+    public static from(arr: Float32Array | number[]): Mat2 {
         const out = new Mat2();
         out.set(arr.slice(0, this.DIM * this.DIM));
 
@@ -86,6 +83,9 @@ export class Mat2 extends Float32Array {
     }
 }
 
+/**
+ * A 4x4 matrix.
+ */
 export class Mat4 extends Float32Array {
     static readonly DIM = 4;
 
@@ -94,18 +94,18 @@ export class Mat4 extends Float32Array {
         this[0] = this[5] = this[10] = this[15] = scale;
     }
 
-    public static clone(arr: Float32Array): Mat4 {
-        const out = new Mat4();
-        // TODO: Slice used to be subarray because it is faster.
-        //       Works in browser console, but webpack seems to break it.
-        //       Cloned identity matrix gets its 1s replaced with NaNs.
-        //       If impossible to fix. Delete method, use from instead.
-        out.set(arr.slice(0, this.DIM * this.DIM));
+    // public static clone(arr: Float32Array): Mat4 {
+    //     const out = new Mat4();
+    //     // TODO: Slice used to be subarray because it is faster.
+    //     //       Works in browser console, but webpack seems to break it.
+    //     //       Cloned identity matrix gets its 1s replaced with NaNs.
+    //     //       If impossible to fix. Delete method, use from instead.
+    //     out.set(arr.subarray(0, this.DIM * this.DIM));
+    //
+    //     return out;
+    // }
 
-        return out;
-    }
-
-    public static from(arr: number[]): Mat4 {
+    public static from(arr: Float32Array | number[]): Mat4 {
         const out = new Mat4();
         out.set(arr.slice(0, this.DIM * this.DIM));
 
@@ -417,10 +417,12 @@ export class Mat4 extends Float32Array {
         return Mat4.multiply(Mat4.rotationMatrix(radians, axis), mat, out);
     }
 
+    /**
+     * Gets the determinate of the matrix
+     * Optimized assuming the last row is [0, 0, 0, 1]
+     * @param mat
+     */
     public static det(mat: Mat4): number {
-        /**
-         * Optimized for the fact that the last row is likely [0, 0, 0, 1]
-         */
         const m11 = mat[0]; const m12 = mat[4]; const m13 = mat[8];  const m14 = mat[12];
         const m21 = mat[1]; const m22 = mat[5]; const m23 = mat[9];  const m24 = mat[13];
         const m31 = mat[2]; const m32 = mat[6]; const m33 = mat[10]; const m34 = mat[14];
@@ -598,7 +600,9 @@ export class Mat4 extends Float32Array {
 
         let det = mat[0] * out0 + mat[1] * out4 + mat[2] * out8 + mat[3] * out12;
 
-        // It's okay if this throws.
+        if (det === 0.0) {
+            throw new Error("Can't invert matrix.");
+        }
         det = 1.0 / det;
 
         out[0]  = out0 * det;
